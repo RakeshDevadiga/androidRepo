@@ -8,8 +8,10 @@
 	
 	<test thread-count="5" name="Test">
 		<classes>
-<!-- 			<class name="test.LoginTest" /> -->
-			<class name="test.IntelomaticEndtoEnd" />
+			<class name="test.LoginTest" />
+<!-- 			<class name="test.IntelomaticEndtoEnd" /> -->
+			<class name="test.CreateCollectorTest" />
+			
 			
 		</classes>
 	</test> <!-- Test -->

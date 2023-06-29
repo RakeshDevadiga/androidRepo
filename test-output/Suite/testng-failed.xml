@@ -7,14 +7,14 @@
   </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="test.IntelomaticEndtoEnd">
+      <class name="test.CreateCollectorTest">
         <methods>
-          <include name="EndtoEndFlowTest" invocation-numbers="0"/>
-          <include name="SetUp"/>
-          <include name="DocFileRead"/>
+          <include name="CreationCases"/>
+          <include name="initialize"/>
           <include name="Teardown"/>
+          <include name="CreateCollectortTestCases" invocation-numbers="0"/>
         </methods>
-      </class> <!-- test.IntelomaticEndtoEnd -->
+      </class> <!-- test.CreateCollectorTest -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

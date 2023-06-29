@@ -44,7 +44,7 @@ public class Common implements ITestListener {
 	public static XSSFRow row;
 	public static XSSFCell cell;
 
-	@BeforeSuite
+	
 	@DataProvider(name = "DocFileRead")
 	public Object[] DocFileRead() {
 		Object[] arrayObject = getExcelData("userData", "Sheet1");
@@ -92,7 +92,7 @@ public class Common implements ITestListener {
 		return tdriver.get();
 	}
 
-	@BeforeTest
+	//@BeforeMethod
 	public void SetUp() throws MalformedURLException {
 		try {
 			InitailizeDriver();
@@ -106,10 +106,7 @@ public class Common implements ITestListener {
 		}
 	}
 
-	@AfterTest
-	public void Teardown() throws MalformedURLException {
-		driver.quit();
-	}
+	
 
 	public String getScreenshot(AppiumDriver driver, String testCaseName) {
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

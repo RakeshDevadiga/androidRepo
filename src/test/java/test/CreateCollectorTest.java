@@ -1,8 +1,15 @@
 package test;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -29,14 +36,17 @@ import pages.UpdatePage;
 	@Listeners({ TestAllureListener.class })
 	public class CreateCollectorTest extends Common
 	{
-				
-		@Test(priority = 0 , dataProvider = "DocFileRead")
-		@Description("Verify the login test")
-		@Epic("Login end to end flow")
-		@Feature("Login Feature")
-		@Story("login and create and fill collector layer details and log out")
-		@Severity(SeverityLevel.CRITICAL)
-		public void LoginTestCases(String rowsCount) throws InterruptedException {
+			
+		@BeforeClass
+		public void initialize() throws MalformedURLException {
+			SetUp();
+		}
+		
+		@Test(priority = 0, description = "verifying login page title test")
+		@Severity(SeverityLevel.NORMAL)
+		@Description("Test Case Description: Verify login page title test on Login Page")
+		@Story("Story Name: To check login page title")
+		public void CreationCases(String rowsCount) throws InterruptedException {
 			try {
 
 				int Row_number = Integer.parseInt(rowsCount);
@@ -153,5 +163,9 @@ import pages.UpdatePage;
 
 			}
 
+		}
+		@AfterClass
+		public void Teardown() throws MalformedURLException {
+			driver.quit();
 		}
 	}

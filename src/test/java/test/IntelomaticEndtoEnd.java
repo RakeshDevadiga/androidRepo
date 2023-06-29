@@ -1,8 +1,11 @@
 package test;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -29,6 +32,10 @@ import pages.UpdatePage;
 @Listeners({TestAllureListener.class})
 public class IntelomaticEndtoEnd extends Common {
 
+	@BeforeMethod
+	public void initialize() throws MalformedURLException {
+		SetUp();
+	}
 	@SuppressWarnings("unchecked")
 	@Test(dataProvider = "DocFileRead")
 	@Description("Verify the login test")
@@ -164,5 +171,9 @@ public class IntelomaticEndtoEnd extends Common {
 			e.printStackTrace();
 			
 		}
+	}
+	@AfterTest
+	public void Teardown() throws MalformedURLException {
+		driver.quit();
 	}
 }

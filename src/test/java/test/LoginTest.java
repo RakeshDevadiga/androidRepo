@@ -1,8 +1,16 @@
 package test;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
+
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -26,7 +34,12 @@ import pages.UpdatePage;
 
 @Listeners({TestAllureListener.class})
 public class LoginTest extends Common{
-	@Test(priority = 0, dataProvider = "DocFileRead")
+	@BeforeClass
+	public void initialize() throws MalformedURLException {
+		SetUp();
+	}
+	
+	@Test(priority = 0,dataProvider = "DocFileRead")
 	@Description("Verify the login test")
 	@Epic("Login end to end flow")
 	@Feature("Login Feature")
@@ -74,9 +87,9 @@ public class LoginTest extends Common{
 			UpdatePage update = new UpdatePage();
 			update.clickOnNoButtonOnNewVersionDetected(driver);
 
-			SoftAssert softAssert = new SoftAssert();
+		//	SoftAssert softAssert = new SoftAssert();
 
-			softAssert.assertAll();
+		//	softAssert.assertAll();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,10 +98,10 @@ public class LoginTest extends Common{
 	}
 	@Test(priority = 1)
 	@Description("Verify the Logout functionality test")
-	@Epic(" Logout form the App ")
-	@Feature("Logout Feature")
-	@Story("Logout from the app")
-	@Severity(SeverityLevel.NORMAL)
+	//@Epic(" Logout form the App ")
+	//@Feature("Logout Feature")
+	//@Story("Logout from the app")
+	//@Severity(SeverityLevel.NORMAL)
 	public void LogoutTestCase() throws InterruptedException {
 
 		try {
@@ -105,5 +118,10 @@ public class LoginTest extends Common{
 		}
 
 	}
+	
+	@AfterClass
+		public void Teardown() throws MalformedURLException {
+			driver.quit();
+		}
 
 }
