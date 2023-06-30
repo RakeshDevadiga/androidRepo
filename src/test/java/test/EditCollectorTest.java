@@ -2,6 +2,7 @@ package test;
 
 import java.util.List;
 
+
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -27,6 +28,7 @@ import pages.PermissionPage;
 import pages.SetupPage;
 import pages.UpdatePage;
 
+@SuppressWarnings("unchecked")
 @Listeners({TestAllureListener.class})
 public class EditCollectorTest extends Common {
 

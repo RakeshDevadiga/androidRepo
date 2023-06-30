@@ -1,6 +1,7 @@
 package test;
 
 import org.testng.Assert;
+
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import base.Common;
@@ -13,9 +14,12 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
 import pages.PermissionPage;
+
+@SuppressWarnings("unchecked")
 @Listeners({TestAllureListener.class})
 public class FailTestDemo extends Common {
 
+	
 	@Test
 	@Description("Verify the Failed test")
 	@Epic("EP001")

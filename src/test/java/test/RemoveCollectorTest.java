@@ -18,7 +18,6 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import pages.CollectorPage;
 import pages.CreateCollectorLayerPage;
-import pages.EditCollectorLayerPage;
 import pages.LoginPage;
 import pages.ManageAccountPage;
 import pages.MapPage;
@@ -27,6 +26,7 @@ import pages.PermissionPage;
 import pages.SetupPage;
 import pages.UpdatePage;
 
+@SuppressWarnings("unchecked")
 @Listeners({TestAllureListener.class})
 public class RemoveCollectorTest extends Common {
 	
@@ -131,7 +131,6 @@ public class RemoveCollectorTest extends Common {
 
 		try {
 			CollectorPage collector = new CollectorPage();
-			EditCollectorLayerPage edit = new EditCollectorLayerPage();
 			SoftAssert softAssert = new SoftAssert();
 			
 			collector.clickOn3Dots(driver);

@@ -176,9 +176,8 @@ public class CollectorPage extends Common {
 		try {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			if (driver.findElement(By.xpath("(//*[@text='Preview Collector Layer'])")).isDisplayed()) {
-				MobileElement client = driver
-						.findElement(By.xpath("(//*[@index='2' and @class='android.widget.EditText'])"));
-				String clientName = client.getAttribute("text");
+				//MobileElement client = driver.findElement(By.xpath("(//*[@index='2' and @class='android.widget.EditText'])"));
+				//String clientName = client.getAttribute("text");
 				System.out.println("Preview collector page is displayed for client name");
 				record = true;
 			}
@@ -205,15 +204,31 @@ public class CollectorPage extends Common {
 
 		try {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			Thread.sleep(4000);
+			Thread.sleep(5000);
 			driver.findElement(By.xpath("(//*[@text='Online'])")).click();
-			Thread.sleep(6000);
+			Thread.sleep(3000);
+			driver.findElement(By.xpath("(//*[@text='Online'])")).click();
+			Thread.sleep(1000);
 			System.out.println("Clicked on the Online button");
 		} catch (Exception e) {
 
 		}
 	}
 	
+	public void clickOnLocal(AppiumDriver<MobileElement> driver) {
+
+		try {
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			Thread.sleep(4000);
+			driver.findElement(By.xpath("(//*[@text='Local'])")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("(//*[@text='Local'])")).click();
+			Thread.sleep(2000);
+			System.out.println("Clicked on the Local button");
+		} catch (Exception e) {
+
+		}
+	}
 	
 	public boolean VerifyPublishedRecordIsDisplayed(AppiumDriver<MobileElement> driver) {
 		boolean publishedRecord = false;
@@ -233,12 +248,6 @@ public class CollectorPage extends Common {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	public void clickOnSearchIcon(AppiumDriver<MobileElement> driver) {
 
 		try {
@@ -250,5 +259,86 @@ public class CollectorPage extends Common {
 
 		}
 	}
+	
+	public void clickOnPublishAllButton(AppiumDriver<MobileElement> driver)
+	{
+		try {
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.findElement(By.xpath("(//*[@index='16']/*)")).click();
+			Thread.sleep(5000);
+			System.out.println("Clicked on the Published All icon");
+		}
+		catch(Exception e)
+		{
+		e.printStackTrace();	
+		}
+	}
+	
+	public boolean verifyPublishAllMethod(AppiumDriver<MobileElement> driver)
+	{
+		boolean publishAll = false;
+		try {
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			if (driver.findElement(By.xpath("(//*[@text='Success'])")).isDisplayed()) {
+				System.out.println("All Collector layers are published");				
+				publishAll = true;
+			}
+			else
+			{
+				System.out.println("Collector layer are not published");
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return publishAll;
+	}
+
+	public void clickOnFilterIcon(AppiumDriver<MobileElement> driver)
+	{
+		try {
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			MobileElement filterIcon = driver.findElement(By.xpath("//*[@index='15']/*"));
+			Thread.sleep(1000);
+			if (filterIcon.isDisplayed()) {
+				System.out.println("Filter Icon is displayed");				
+				filterIcon.click();
+				System.out.println("Clicked on the Filter Icon ");	
+			}
+			else
+			{
+				System.out.println("Filter Icon is not displayed");
+			}
+			
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
+	public void clickOnLayerListButton(AppiumDriver<MobileElement> driver)
+	{
+		try {
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			MobileElement list = driver.findElement(By.xpath("//*[@text='DailyVisit']"));
+			Thread.sleep(1000);
+			if (list.isDisplayed()) {
+				System.out.println("Collector layer option is displayed");				
+				list.click();
+				System.out.println("Clicked on the Collector layer option");	
+			}
+			else
+			{
+				System.out.println("Collector list option is not displayed");
+			}
+			
+		}
+		catch(Exception e)
+		{
+			
+		}
+	}
+	
 }

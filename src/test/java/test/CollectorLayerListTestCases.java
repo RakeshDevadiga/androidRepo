@@ -1,8 +1,11 @@
 package test;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -16,6 +19,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import pages.CollectorLayerListPage;
 import pages.CollectorPage;
 import pages.CreateCollectorLayerPage;
 import pages.LoginPage;
@@ -28,7 +32,12 @@ import pages.UpdatePage;
 
 @SuppressWarnings("unchecked")
 @Listeners({ TestAllureListener.class })
-public class PublishCollectorTest extends Common {
+public class CollectorLayerListTestCases extends Common {
+
+	@BeforeClass
+	public void initialize() throws MalformedURLException {
+		SetUp();
+	}
 	
 	@Test(priority = 0, dataProvider = "DocFileRead")
 	@Description("Verify the login test")
@@ -81,7 +90,7 @@ public class PublishCollectorTest extends Common {
 			SoftAssert softAssert = new SoftAssert();
 
 			softAssert.assertAll();
-
+			Thread.sleep(2000);
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -97,7 +106,6 @@ public class PublishCollectorTest extends Common {
 	public void CreateCollectortTestCases() throws InterruptedException {
 		try {
 			MapPage map = new MapPage();
-			Thread.sleep(2000);
 			map.clickOnCollectorIcon(driver);
 			CollectorPage collector = new CollectorPage();
 			// update.clickOnNoButtonOnNewVersionDetected(driver);
@@ -108,11 +116,15 @@ public class PublishCollectorTest extends Common {
 			create.enterMinutesOfMeeting(driver, "Automation test is running");
 			create.SelectFollowUpDate(driver);
 			create.SelectLocation(driver);
-			//create.UploadImage(driver, "Uploading a raw image");
+			create.UploadImage(driver, "Uploading a raw image");
+			Thread.sleep(2000);
+			create.takeCameraImage(driver, "Taking a camera image");
 			create.clickOnSaveButton(driver);
 			Thread.sleep(2000);
 			boolean record = collector.VerifyRecordAddedSucessfully(driver, "Automation");
+
 			SoftAssert softAssert = new SoftAssert();
+
 			softAssert.assertTrue(record);
 
 			softAssert.assertAll();
@@ -122,38 +134,35 @@ public class PublishCollectorTest extends Common {
 	}
 
 	@Test(priority = 2)
-	@Description("Verify the publish collector layer")
-	@Epic(" Publishing of the Collector form ")
+	@Description("Verify the Collector layer list")
+	@Epic(" Selecting the Collector layer list from the Collector page ")
 	@Feature("Collector Feature")
-	@Story("Publish the collector layer record")
+	@Story("Select the collector layer")
 	@Severity(SeverityLevel.NORMAL)
-	public void PublishCollectortTestCases() throws InterruptedException {
+	public void SelectCollectorLayertTestCases() throws InterruptedException {
 
 		try {
 			CollectorPage collector = new CollectorPage();
-			
+			CollectorLayerListPage list = new CollectorLayerListPage();
 			SoftAssert softAssert = new SoftAssert();
-			
-			collector.clickOn3Dots(driver);
-			collector.clickOnPublishRecord(driver);
-			collector.clickOnOKButton(driver);
-			
-			
-			collector.clickOnOnline(driver);
-			
-			boolean verifyPublish = collector.VerifyPublishedRecordIsDisplayed(driver);
-			softAssert.assertTrue(verifyPublish);
-			
+
+			collector.clickOnLayerListButton(driver);
+			Thread.sleep(1000);
+			boolean verifyList = list.verifyLayerListPageIsDisplayed(driver);
+			softAssert.assertTrue(verifyList);
+			Thread.sleep(1000);
+
+			list.selectCollectorLayerList(driver);
+			Thread.sleep(1000);
 			softAssert.assertAll();
 			
-			
-		} 
-		catch (Exception e) {
 
+		} catch (Exception e) {
+			e.getStackTrace();
 		}
 
 	}
-	
+
 	@Test(priority = 3)
 	@Description("Verify the Logout functionality test")
 	@Epic(" Logout form the App ")
@@ -166,15 +175,17 @@ public class PublishCollectorTest extends Common {
 			CollectorPage collector = new CollectorPage();
 			collector.clickOnManageAccount(driver);
 			Thread.sleep(1000);
-			
+
 			ManageAccountPage manage = new ManageAccountPage();
 			manage.clickOnLogOut(driver);
-			
-		} 
-		catch (Exception e) {
+
+		} catch (Exception e) {
 
 		}
 
 	}
-
+	@AfterClass
+	public void Teardown() throws MalformedURLException {
+		driver.quit();
+	}
 }

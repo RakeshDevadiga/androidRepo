@@ -1,8 +1,15 @@
 package test;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -26,21 +33,22 @@ import pages.PermissionPage;
 import pages.SetupPage;
 import pages.UpdatePage;
 
-	@SuppressWarnings("unchecked")
 	@Listeners({ TestAllureListener.class })
-	public class CreateCollectorTest extends Common
+	public class CreateCollectorTest1 extends Common
 	{
-				
-		@Test(priority = 0 , dataProvider = "DocFileRead")
-		@Description("Verify the login test")
-		@Epic("Login end to end flow")
-		@Feature("Login Feature")
-		@Story("login and create and fill collector layer details and log out")
-		@Severity(SeverityLevel.CRITICAL)
-		public void LoginTestCases(String rowsCount) throws InterruptedException {
+			
+		@BeforeClass
+		public void initialize() throws MalformedURLException {
+			SetUp();
+		}
+		
+		@Test(priority = 0, description = "verifying login page title test")
+		@Severity(SeverityLevel.NORMAL)
+		@Description("Test Case Description: Verify login page title test on Login Page")
+		@Story("Story Name: To check login page title")
+		public void CreationCases(String rowsCount) throws InterruptedException {
 			try {
 
-				System.out.println("Rowcount " + rowsCount);
 				int Row_number = Integer.parseInt(rowsCount);
 				
 				List<String> list = Utility.getRowData("userData", "Sheet1", Row_number);
@@ -83,6 +91,10 @@ import pages.UpdatePage;
 				SoftAssert softAssert = new SoftAssert();
 				
 				softAssert.assertAll();
+				// Assert.assertTrue(true);
+				// Assert.assertFalse(true);
+				// loginPage.TearDown();
+
 				Thread.sleep(2000);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -90,14 +102,16 @@ import pages.UpdatePage;
 			}
 		}
 		
-		@Test(priority = 1)
+		@Test(priority = 1, dataProvider = "DocFileReadFormCreation")
 		@Description("Verify the create collector layer form test")
 		@Epic(" Creation of the Collector form ")
 		@Feature("Collector Feature")
 		@Story("Create and fill collector layer details and log out")
 		@Severity(SeverityLevel.CRITICAL)
-		public void CreateCollectortTestCases() throws InterruptedException {
+		public void CreateCollectortTestCases(String rowsCount) throws InterruptedException {
 			try {
+				int Row_number = Integer.parseInt(rowsCount);
+				List<String> list = Utility.getRowData("userData", "Sheet2", Row_number);
 				MapPage map = new MapPage();
 				map.clickOnCollectorIcon(driver);
 				CollectorPage collector = new CollectorPage();
@@ -110,8 +124,6 @@ import pages.UpdatePage;
 				create.SelectFollowUpDate(driver);
 				create.SelectLocation(driver);
 				create.UploadImage(driver, "Uploading a raw image");
-				Thread.sleep(2000);
-				create.takeCameraImage(driver, "Taking a camera image");
 				create.clickOnSaveButton(driver);
 				Thread.sleep(2000);
 				boolean record = collector.VerifyRecordAddedSucessfully(driver, "Automation");
@@ -127,7 +139,9 @@ import pages.UpdatePage;
 
 			}
 		}
-
+		
+		
+	
 		@Test(priority = 2)
 		@Description("Verify the Logout functionality test")
 		@Epic(" Logout form the App ")
@@ -149,5 +163,9 @@ import pages.UpdatePage;
 
 			}
 
+		}
+		@AfterClass
+		public void Teardown() throws MalformedURLException {
+			driver.quit();
 		}
 	}

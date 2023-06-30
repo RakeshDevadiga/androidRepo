@@ -19,32 +19,32 @@ public class PermissionPage extends Common {
 	@Step("Click on Permission")
 	public void clickOnLocationPermission(AppiumDriver<MobileElement> driver) {
 		driver.findElement(By.xpath("//*[@text='Request location permission']")).click();
-		System.out.println("Click on Location Permission");
+		System.out.println("Clicked on Location Permission");
 	}
 
 	@Step("Click on Allow Button")
 	public void allowOK(AppiumDriver<MobileElement> driver) {
 		driver.findElement(By.xpath("//*[@text='OK']")).click();
-		System.out.println("Click on Allow OK");
+		System.out.println("Clicked on Allow OK");
 	}
 
 	@Step("Click on Allow While Using App")
 	public void allowWhileUsingApp(AppiumDriver<MobileElement> driver) {
 		//driver.findElement(By.xpath("//*[@text , 'While using the app')]")).click();
 		driver.findElement(By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_allow_foreground_only_button']")).click();
-		System.out.println("Click on While Using The App");
+		System.out.println("Clicked on While Using The App");
 	}
 
 	@Step("Click on All Time Radio Button")
 	public void clickOnAllowAllTimeRadio(AppiumDriver<MobileElement> driver) {
 		driver.findElement(By.xpath("//*[@text='Allow all the time']")).click();
-		System.out.println("Click on Allow All Time radio button");
+		System.out.println("Clicked on Allow All Time radio button");
 	}
 
 	@Step("Click on Back Button")
 	public void clickOnBackButton(AppiumDriver<MobileElement> driver) {
 		driver.findElement(By.xpath("//*[@class='android.widget.ImageButton']")).click();
-		System.out.println("Click on back button");
+		System.out.println("Clicked on back button");
 	}
 
 	@Step("Click on Battery Permission")
@@ -60,8 +60,9 @@ public class PermissionPage extends Common {
 		{
 			batteryPermission.get(0).click();
 			System.out.println("Click on Battery Permission");
-			driver.findElement(By.xpath("//*[@text='Allow']")).click();
-			System.out.println("Click on Allow");
+			//driver.findElement(By.xpath("//*[@text='Allow']")).click();
+			driver.findElement(By.xpath("//*[@resource-id='android:id/button1']")).click();
+			System.out.println("Clicked on Allow");
 			
 		}
 		
@@ -69,31 +70,33 @@ public class PermissionPage extends Common {
 	
 	@Step("Click on Allow Button")
 	public void clickOnAllowforBattery(AppiumDriver<MobileElement> driver) {
-		driver.findElement(By.xpath("//*[@text='Allow']")).click();
-		System.out.println("Click on Allow");
+		//driver.findElement(By.xpath("//*[@text='Allow']")).click();
+		driver.findElement(By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_allow_button']")).click();
+		System.out.println("Clicked on Allow");
 	}
 	
 	@Step("Click on Camera Permission")
 	public void clickOnCameraPermission(AppiumDriver<MobileElement> driver) {
 		driver.findElement(By.xpath("//*[@text='Request camera permission']")).click();
-		System.out.println("Click on Request Camera Permission");
+		System.out.println("Clicked on Request Camera Permission");
 	}
 
 	@Step("Click on Storage Permission Button")
 	public void clickOnStoragePermission(AppiumDriver<MobileElement> driver) {
 		driver.findElement(By.xpath("//*[@text='Request storage permission']")).click();
-		System.out.println("Click on Request Storage Permission");
+		System.out.println("Clicked on Request Storage Permission");
 	}
 
 	@Step("Click on Allow Button")
 	public void clickOnAllow(AppiumDriver<MobileElement> driver) {
-			driver.findElement(By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_allow_button']")).click();
-			System.out.println("Click on Allow");	
+		//driver.findElement(By.xpath("//*[@text='Allow']")).click();
+		driver.findElement(By.xpath("//*[@resource-id='com.android.permissioncontroller:id/permission_allow_button']")).click();
+		System.out.println("Clicked on Allow");
 	}
 	
 	@Step("Click on Go Button")
 	public void clickOnGo(AppiumDriver<MobileElement> driver) {
 		driver.findElement(By.xpath("//*[@text='Go']")).click();
-		System.out.println("Click on Go Button");
+		System.out.println("Clicked on Go Button");
 	}
 }

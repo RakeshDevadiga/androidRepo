@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -30,6 +32,8 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import pages.SetupPage;
 
 public class Common implements ITestListener {
@@ -151,5 +155,42 @@ public class Common implements ITestListener {
 			e.printStackTrace();
 		}
 		return arrayExcelData;
+	}
+	
+	//Date methods
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+	
+	LocalDate todayDate = LocalDate.now();
+	
+	LocalDate nxtDate = findDay(todayDate, 3);
+	public String SelectDate = dtf.format(nxtDate);
+	
+	
+	public static LocalDate findToday(LocalDate localdate)
+	{
+		return LocalDate.now();
+	}
+	public static LocalDate findDay(LocalDate localdate, int dayPlus)
+	{
+		return localdate.plusDays(dayPlus);
+	}
+	public static LocalDate findNext2Day(LocalDate localdate)
+	{
+		return localdate.plusDays(2);
+	}
+	
+	
+	//Scroll methods
+	@SuppressWarnings("rawtypes")
+	public void scroll(int fromX, int fromY, int toX, int toY)
+	{
+		(new TouchAction(driver)).press(PointOption.point(fromX, fromY)).moveTo(PointOption.point(toX, toY)).release().perform();
+		  
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void tapOnScreen(int x, int y)
+	{
+		(new TouchAction(driver)).tap(PointOption.point(x, y)).perform();
 	}
 }

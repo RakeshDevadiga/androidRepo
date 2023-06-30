@@ -20,9 +20,9 @@ public class UpdatePage extends Common{
 	public void clickOnNoButtonOnNewVersionDetected(AppiumDriver<MobileElement> driver) throws InterruptedException {
 		try {
 		driver.findElement(By.xpath("//*[@text='New version detected']/..//*[@text='No']")).click();
-		System.out.println("Click on No in New Version Detedted Pop up");
+		System.out.println("Clicked on No in New Version Detedted Pop up");
 		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
-		Thread.sleep(13000);
+		Thread.sleep(12000);
 		}
 	
 	catch (StaleElementReferenceException e) 

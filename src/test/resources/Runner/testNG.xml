@@ -3,16 +3,27 @@
 <suite name="Suite">
 	<listeners>
 		<listener class-name="base.TestAllureListener" />
-		 <listener class-name="extentReportConfig.Listeners"/>
+<!-- 		 <listener class-name="extentReportConfig.Listeners"/> -->
 	</listeners>
 	
 	<test thread-count="5" name="Test">
 		<classes>
 			<class name="test.LoginTest" />
-<!-- 			<class name="test.IntelomaticEndtoEnd" /> -->
-			<class name="test.CreateCollectorTest" />
+			<class name="test.IntelomaticEndtoEnd" />
+<!-- 			<class name="test.CreateCollectorTest" /> -->
 			
-			
+<!-- 	<class name="test.CollectorLayerListTestCases"/> -->
+<!--       <class name="test.SearchResultTest"/> -->
+<!--       <class name="test.PreviewCollectorTest"/> -->
+   
+<!--       <class name="test.CreateCollectorTest1"/> -->
+<!--       <class name="test.PublishCollectorTest"/> -->
+<!--       <class name="test.RemoveCollectorTest"/> -->
+<!--       <class name="test.FailTestDemo"/> -->
+<!--       <class name="test.PublishAllCollectorsTest"/> -->
+<!--       <class name="test.CollectorFilterRecordsTest"/> -->
+<!--       <class name="test.EditCollectorTest"/> -->
+<!--       <class name="test.CreateCollectorTest"/> -->
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

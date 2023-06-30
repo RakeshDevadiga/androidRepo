@@ -26,6 +26,7 @@ import pages.PermissionPage;
 import pages.SetupPage;
 import pages.UpdatePage;
 
+@SuppressWarnings("unchecked")
 @Listeners({TestAllureListener.class})
 public class PreviewCollectorTest extends Common{
 	@Test(priority = 0 , dataProvider = "DocFileRead")

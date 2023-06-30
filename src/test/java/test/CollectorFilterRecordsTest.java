@@ -1,8 +1,10 @@
 package test;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -16,7 +18,9 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import pages.CollectorFilterPage;
 import pages.CollectorPage;
+import pages.CollectorSearchPage;
 import pages.CreateCollectorLayerPage;
 import pages.LoginPage;
 import pages.ManageAccountPage;
@@ -26,11 +30,10 @@ import pages.PermissionPage;
 import pages.SetupPage;
 import pages.UpdatePage;
 
-@SuppressWarnings("unchecked")
-@Listeners({ TestAllureListener.class })
-public class PublishCollectorTest extends Common {
-	
-	@Test(priority = 0, dataProvider = "DocFileRead")
+@Listeners({TestAllureListener.class})
+public class CollectorFilterRecordsTest extends Common {
+
+	@Test(dataProvider = "DocFileRead", priority = 0)
 	@Description("Verify the login test")
 	@Epic("Login end to end flow")
 	@Feature("Login Feature")
@@ -38,7 +41,6 @@ public class PublishCollectorTest extends Common {
 	@Severity(SeverityLevel.CRITICAL)
 	public void LoginTestCases(String rowsCount) throws InterruptedException {
 		try {
-
 			System.out.println("Rowcount " + rowsCount);
 			int Row_number = Integer.parseInt(rowsCount);
 
@@ -65,6 +67,9 @@ public class PublishCollectorTest extends Common {
 			LoginPage loginPage = new LoginPage();
 			// loginPage.enterUsername(driver, list.get(2));
 			// loginPage.enterPassword(driver, list.get(3));
+		
+			
+			
 			// loginPage.clickLogin(driver);
 			loginPage.login(driver, list.get(2), list.get(3));
 			// permission.clickOnAllow(driver); // For Notification
@@ -77,10 +82,9 @@ public class PublishCollectorTest extends Common {
 			ndms.clickOnConfirmOKButton(driver);
 			UpdatePage update = new UpdatePage();
 			update.clickOnNoButtonOnNewVersionDetected(driver);
-
-			SoftAssert softAssert = new SoftAssert();
-
-			softAssert.assertAll();
+			/*
+			 * MapPage map = new MapPage(); map.clickOnCollectorIcon(driver);
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,7 +92,8 @@ public class PublishCollectorTest extends Common {
 		}
 	}
 
-	@Test(priority = 1)
+	// Create Scenario
+	@Test(priority = 1 , invocationCount = 1)
 	@Description("Verify the create collector layer form test")
 	@Epic(" Creation of the Collector form ")
 	@Feature("Collector Feature")
@@ -97,9 +102,9 @@ public class PublishCollectorTest extends Common {
 	public void CreateCollectortTestCases() throws InterruptedException {
 		try {
 			MapPage map = new MapPage();
-			Thread.sleep(2000);
 			map.clickOnCollectorIcon(driver);
 			CollectorPage collector = new CollectorPage();
+			Thread.sleep(1000);
 			// update.clickOnNoButtonOnNewVersionDetected(driver);
 			collector.clickOnAddNewCollectorIcon(driver);
 			CreateCollectorLayerPage create = new CreateCollectorLayerPage();
@@ -108,11 +113,13 @@ public class PublishCollectorTest extends Common {
 			create.enterMinutesOfMeeting(driver, "Automation test is running");
 			create.SelectFollowUpDate(driver);
 			create.SelectLocation(driver);
-			//create.UploadImage(driver, "Uploading a raw image");
+		//	create.UploadImage(driver, "Uploading a raw image");
 			create.clickOnSaveButton(driver);
 			Thread.sleep(2000);
 			boolean record = collector.VerifyRecordAddedSucessfully(driver, "Automation");
+
 			SoftAssert softAssert = new SoftAssert();
+
 			softAssert.assertTrue(record);
 
 			softAssert.assertAll();
@@ -120,38 +127,45 @@ public class PublishCollectorTest extends Common {
 
 		}
 	}
-
+	
 	@Test(priority = 2)
-	@Description("Verify the publish collector layer")
-	@Epic(" Publishing of the Collector form ")
+	@Description("Verify the filter of collector layers")
+	@Epic(" Filter result data of the Collector form ")
 	@Feature("Collector Feature")
-	@Story("Publish the collector layer record")
+	@Story("Filter options and verify the filter result of collector layers")
 	@Severity(SeverityLevel.NORMAL)
-	public void PublishCollectortTestCases() throws InterruptedException {
-
+	public void FilterPageTestCases() throws InterruptedException {
 		try {
+			
+			CollectorFilterPage filter = new CollectorFilterPage();
+			SoftAssert softAssert = new SoftAssert();
 			CollectorPage collector = new CollectorPage();
 			
-			SoftAssert softAssert = new SoftAssert();
+			collector.clickOnFilterIcon(driver);
+			Thread.sleep(1000);
+			boolean filterRecord = filter.verifyFilterPageIsDisplayed(driver);
+			softAssert.assertTrue(filterRecord);
+			Thread.sleep(1000);
 			
-			collector.clickOn3Dots(driver);
-			collector.clickOnPublishRecord(driver);
-			collector.clickOnOKButton(driver);
-			
-			
-			collector.clickOnOnline(driver);
-			
-			boolean verifyPublish = collector.VerifyPublishedRecordIsDisplayed(driver);
-			softAssert.assertTrue(verifyPublish);
+			filter.clickOnCreateDate(driver);
+			Thread.sleep(1000);
+			filter.selectCurrentDate(driver);
+			Thread.sleep(1000);
+			filter.clickOnAddFilterButton(driver);
+			Thread.sleep(1000);
+			filter.selectClientName(driver);
+			Thread.sleep(1000);
+			filter.enterTextInAddFilter(driver, "Automation");
+			Thread.sleep(1000);
+			filter.clickOnApplyButton(driver);
+			Thread.sleep(1000);
+			boolean appliedFilter = filter.verifyFilterPageIsApplied(driver);
+			softAssert.assertTrue(appliedFilter);
 			
 			softAssert.assertAll();
-			
-			
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 
 		}
-
 	}
 	
 	@Test(priority = 3)
@@ -176,5 +190,11 @@ public class PublishCollectorTest extends Common {
 		}
 
 	}
+	
+	@AfterClass
+	public void Teardown() throws MalformedURLException {
+		driver.quit();
+	}
+
 
 }

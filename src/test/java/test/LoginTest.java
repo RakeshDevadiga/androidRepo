@@ -3,14 +3,9 @@ package test;
 import java.net.MalformedURLException;
 import java.util.List;
 
-
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -32,14 +27,16 @@ import pages.PermissionPage;
 import pages.SetupPage;
 import pages.UpdatePage;
 
-@Listeners({TestAllureListener.class})
-public class LoginTest extends Common{
+@SuppressWarnings("unchecked")
+@Listeners({ TestAllureListener.class })
+public class LoginTest extends Common {
+
 	@BeforeClass
 	public void initialize() throws MalformedURLException {
 		SetUp();
 	}
-	
-	@Test(priority = 0,dataProvider = "DocFileRead")
+
+	@Test(priority = 0, dataProvider = "DocFileRead")
 	@Description("Verify the login test")
 	@Epic("Login end to end flow")
 	@Feature("Login Feature")
@@ -48,7 +45,6 @@ public class LoginTest extends Common{
 	public void LoginTestCases(String rowsCount) throws InterruptedException {
 		try {
 
-			System.out.println("Rowcount " + rowsCount);
 			int Row_number = Integer.parseInt(rowsCount);
 
 			List<String> list = Utility.getRowData("userData", "Sheet1", Row_number);
@@ -68,60 +64,50 @@ public class LoginTest extends Common{
 			permission.clickOnStoragePermission(driver);
 			permission.clickOnAllow(driver);
 			permission.clickOnGo(driver);
-
-			// boolean loginStatus = login.ValidLogin(driver, list.get(2), list.get(3));
-
 			LoginPage loginPage = new LoginPage();
-			// loginPage.enterUsername(driver, list.get(2));
-			// loginPage.enterPassword(driver, list.get(3));
-			// loginPage.clickLogin(driver);
+
 			loginPage.login(driver, list.get(2), list.get(3));
 			// permission.clickOnAllow(driver); // For Notification
 			Ndms2Page ndms = new Ndms2Page();
 			boolean ndsm2Text = ndms.VerifyNDMS2Page(driver);
 			Assert.assertTrue(ndsm2Text);
-			// softAssert.assertEquals(ndsm2Text, false);
-			// softAssert.assertTrue(ndsm2Text);
+
 			ndms.clickOnMapView(driver);
 			ndms.clickOnConfirmOKButton(driver);
 			UpdatePage update = new UpdatePage();
 			update.clickOnNoButtonOnNewVersionDetected(driver);
-
-		//	SoftAssert softAssert = new SoftAssert();
-
-		//	softAssert.assertAll();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 	}
+
 	@Test(priority = 1)
 	@Description("Verify the Logout functionality test")
-	//@Epic(" Logout form the App ")
-	//@Feature("Logout Feature")
-	//@Story("Logout from the app")
-	//@Severity(SeverityLevel.NORMAL)
+	@Epic(" Logout form the App ")
+	@Feature("Logout Feature")
+	@Story("Logout from the app")
+	@Severity(SeverityLevel.NORMAL)
 	public void LogoutTestCase() throws InterruptedException {
 
 		try {
 			CollectorPage collector = new CollectorPage();
 			collector.clickOnManageAccount(driver);
 			Thread.sleep(1000);
-			
+
 			ManageAccountPage manage = new ManageAccountPage();
 			manage.clickOnLogOut(driver);
-			
-		} 
-		catch (Exception e) {
+
+		} catch (Exception e) {
 
 		}
 
 	}
-	
+
 	@AfterClass
-		public void Teardown() throws MalformedURLException {
-			driver.quit();
-		}
+	public void Teardown() throws MalformedURLException {
+		driver.quit();
+	}
 
 }

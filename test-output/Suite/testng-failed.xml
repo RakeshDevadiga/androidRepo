@@ -3,18 +3,16 @@
 <suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
   <listeners>
     <listener class-name="base.TestAllureListener"/>
-    <listener class-name="extentReportConfig.Listeners"/>
   </listeners>
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="test.CreateCollectorTest">
+      <class name="test.IntelomaticEndtoEnd">
         <methods>
-          <include name="CreationCases"/>
-          <include name="initialize"/>
+          <include name="EndtoEndFlowTest" invocation-numbers="0"/>
           <include name="Teardown"/>
-          <include name="CreateCollectortTestCases" invocation-numbers="0"/>
+          <include name="initialize"/>
         </methods>
-      </class> <!-- test.CreateCollectorTest -->
+      </class> <!-- test.IntelomaticEndtoEnd -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
