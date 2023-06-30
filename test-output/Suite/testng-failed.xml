@@ -8,8 +8,8 @@
     <classes>
       <class name="test.IntelomaticEndtoEnd">
         <methods>
-          <include name="EndtoEndFlowTest" invocation-numbers="0"/>
           <include name="Teardown"/>
+          <include name="CreateCollectortTestCases"/>
           <include name="initialize"/>
         </methods>
       </class> <!-- test.IntelomaticEndtoEnd -->
